@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "ai-introduction"
+version = "0.1.0"
+description = "Step-by-step introduction to AI concepts"
+authors = ["TechLeaders"]
+readme = "README.md"
+
+[[tool.poetry.source]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "supplemental"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.14.1"
+numpy = "^2.4.3"
+matplotlib = "^3.10.8"
+seaborn = "^0.13.2"
+scikit-learn = "^1.8.0"
+torch = { version = "^2.4.1", source = "pytorch-cpu" }
+torchvision = { version = "^0.19.1", source = "pytorch-cpu" }
+gradio = "^6.10.0"
+pydantic-ai = "^1.71.0"
+jupyter = "^1.1.1"
+ipywidgets = "^8.1.8"
+
+[tool.poetry.group.dev.dependencies]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
