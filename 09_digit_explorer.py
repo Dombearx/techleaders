@@ -11,6 +11,8 @@
 # Prerequisites: run 08_mnist.ipynb first to create mnist_model.pt
 # ==============================================================================
 
+from typing import Any
+
 import torch
 import torch.nn as nn
 import numpy as np
@@ -25,7 +27,7 @@ import matplotlib.patches as mpatches
 # ==============================================================================
 
 class MNISTNet(nn.Module):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.net = nn.Sequential(
             nn.Flatten(),
@@ -36,7 +38,7 @@ class MNISTNet(nn.Module):
             nn.Linear(128, 10),
         )
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.net(x)
 
 
@@ -66,7 +68,7 @@ preprocess = transforms.Compose([
     transforms.Normalize((0.1307,), (0.3081,)),
 ])
 
-def predict(sketch):
+def predict(sketch: dict[str, Any] | None) -> tuple[plt.Figure | None, str]:
     """
     sketch: dict with 'composite' key containing an RGBA numpy array
             (what Gradio's sketchpad returns)

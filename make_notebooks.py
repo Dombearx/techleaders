@@ -1,10 +1,11 @@
 """Generate all AI/ML teaching notebooks."""
 import json, uuid, os
+from typing import Any
 
-def cell_id():
+def cell_id() -> str:
     return uuid.uuid4().hex[:8]
 
-def md(source_lines):
+def md(source_lines: list[str]) -> dict[str, Any]:
     return {
         "cell_type": "markdown",
         "id": cell_id(),
@@ -12,7 +13,7 @@ def md(source_lines):
         "source": source_lines,
     }
 
-def code(source_lines):
+def code(source_lines: list[str]) -> dict[str, Any]:
     return {
         "cell_type": "code",
         "id": cell_id(),
@@ -22,14 +23,14 @@ def code(source_lines):
         "source": source_lines,
     }
 
-def lines(*args):
+def lines(*args: str) -> list[str]:
     """Join lines: each string becomes one line.  Last line has no \\n."""
     result = []
     for i, s in enumerate(args):
         result.append(s + "\n" if i < len(args) - 1 else s)
     return result
 
-def notebook(cells):
+def notebook(cells: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "nbformat": 4,
         "nbformat_minor": 5,
@@ -44,7 +45,7 @@ def notebook(cells):
         "cells": cells,
     }
 
-def save(path, nb):
+def save(path: str, nb: dict[str, Any]) -> None:
     with open(path, "w", encoding="utf-8") as f:
         json.dump(nb, f, indent=1, ensure_ascii=False)
     print(f"  wrote {os.path.basename(path)}")
