@@ -49,7 +49,7 @@ def save(path, nb):
         json.dump(nb, f, indent=1, ensure_ascii=False)
     print(f"  wrote {os.path.basename(path)}")
 
-BASE = "/home/runner/work/techleaders/techleaders"
+BASE = os.path.dirname(os.path.abspath(__file__))
 
 # =============================================================================
 # 01 — Rule-Based AI
@@ -303,9 +303,9 @@ nb02 = notebook([
         "n = len(x)",
         "loss_history = []",
         "",
-        "# Steps at which we'll take a snapshot of the line",
-        "snapshot_steps = {0, 5, 20, 50, 100, 199}",
-        "snapshots = []   # list of (step, w, b)",
+        "# Steps at which we'll take a snapshot of the line (1-indexed step numbers)",
+        "snapshot_steps = {1, 5, 20, 50, 100, 200}",
+        "snapshots = []   # list of (step_number, w, b)",
         "",
         "for step in range(200):",
         "    predictions = w * x + b",
@@ -323,8 +323,9 @@ nb02 = notebook([
         "",
         "    loss_history.append(compute_loss(w, b, x, y))",
         "",
-        "    if step in snapshot_steps:",
-        "        snapshots.append((step + 1, w, b))",
+        "    step_number = step + 1   # convert 0-indexed to human-readable",
+        "    if step_number in snapshot_steps:",
+        "        snapshots.append((step_number, w, b))",
         "",
         "# ---- Plot the snapshots ----",
         "fig, ax = plt.subplots(figsize=(9, 5))",
